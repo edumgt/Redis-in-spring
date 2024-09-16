@@ -1,5 +1,6 @@
 package org.example.redisinspring;
 
+import jakarta.persistence.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -9,12 +10,16 @@ import java.util.List;
 
 @Service
 public class BoardService {
+
   private BoardRepository boardRepository;
+  private Pageable pageable;
 
   public BoardService(BoardRepository boardRepository) {
     this.boardRepository = boardRepository;
   }
 
+  //FIXME : cannot resolve cacheNames, key, cacheManager 오류가 발생합니다.
+  @Cacheable(cacheNames = "getBoards", key = "'boards:page:' + #page + ':size:' + #size", cacheManager = "boardCacheManager")
   public List<Board> getBoards(int page, int size) {
     Pageable pageable = PageRequest.of(page - 1, size);
     Page<Board> pageOfBoards = boardRepository.findAllByOrderByCreatedAtDesc(pageable);

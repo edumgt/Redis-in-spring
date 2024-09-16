@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("boards")
 public class BoardController {
+
   private BoardService boardService;
 
   public BoardController(BoardService boardService) {
@@ -19,8 +20,9 @@ public class BoardController {
 
   @GetMapping()
   public List<Board> getBoards(
-          @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size
+          @RequestParam(defaultValue = "1", value="page") int page, @RequestParam(defaultValue = "10",value="size") int size
   ) {
     return boardService.getBoards(page, size);
   }
+
 }

@@ -1,6 +1,6 @@
 package org.example.redisinspring;
 
-import jakarta.persistence.Cacheable;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
